@@ -128,20 +128,7 @@ resource "local_file" "tf-key" {
   filename = "tf-key-pair"
 }
 
-//copying file from locally to server
-provisioner "file" {
-  source = "terraform.tfstate" //file local source
-  destination = "/tmp/terraform.tfstate" //storing the file tmp folder
 
-}
-
-//execute the file in remote(server)
-provisioner "remote-exec" { //giving this block name as remote-exec
-  inline = [
-    "chmod u+x /tmp/web.sh", //giving executable permission for user
-    "sudo /tmp/web.sh"   //executing the file manually
-  ]
-}
 
 
 
