@@ -128,6 +128,7 @@ resource "local_file" "tf-key" {
   filename = "tf-key-pair"
 }
 
+<<<<<<< HEAD
 //copying file from locally to server
 # provisioner "file" {
 #   source = "terraform.tfstate" //file local source
@@ -142,6 +143,9 @@ resource "local_file" "tf-key" {
 #     "sudo /tmp/web.sh"   //executing the file manually
 #   ]
 # }
+=======
+
+
 
 
 
