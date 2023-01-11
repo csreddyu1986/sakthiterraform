@@ -2,3 +2,4 @@ sudo yum install httpd -y
 sudo yum install git -y
 sudo service httpd start 
 sudo chkconfig httpd on 
+sudo git init
