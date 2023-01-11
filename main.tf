@@ -7,17 +7,20 @@ provider "aws" {
 resource "aws_vpc" "tf-vpc" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    "Name" = "tf-vpc"
+    "Name" = "${var.project_name}-vpc"
   }
 }
+
+//use data source for availability zone
+data "aws_availability_zone" "tf-az" {}
 
 //creating subnet and attached to vpc created above
 resource "aws_subnet" "tf-subnet" {
   vpc_id            = aws_vpc.tf-vpc.id
-  availability_zone = "us-east-1a"
+  availability_zone = data.aws_availability_zone.tf-az.Names[0]
   cidr_block        = "10.0.1.0/24"
   tags = {
-    "Name" = "tf-subnet"
+    "Name" = "${var.project_name}-subnet"
   }
 }
 
@@ -29,7 +32,7 @@ resource "aws_route_table" "tf-rt" {
     gateway_id = aws_internet_gateway.tf-ig.id
   }
   tags = {
-    "Name" = "tf-rt"
+    "Name" = "${var.project_name}-rt"
   }
 }
 
@@ -44,7 +47,7 @@ resource "aws_route_table_association" "tf-rt-association-subnet" {
 resource "aws_internet_gateway" "tf-ig" {
   vpc_id = aws_vpc.tf-vpc.id
   tags = {
-    "Name" = "tf-ig"
+    "Name" = "${var.project_name}-ig"
   }
 }
 
@@ -128,7 +131,7 @@ resource "local_file" "tf-key" {
   filename = "tf-key-pair"
 }
 
-<<<<<<< HEAD
+
 //copying file from locally to server
 # provisioner "file" {
 #   source = "terraform.tfstate" //file local source
@@ -142,8 +145,7 @@ resource "local_file" "tf-key" {
 #     "chmod u+x /tmp/web.sh", //giving executable permission for user
 #     "sudo /tmp/web.sh"   //executing the file manually
 #   ]
-# }
-=======
+#}
 
 
 
